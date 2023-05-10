@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:WeatherFlex.Model"
+             x:Class="WeatherFlex.View.FavoritesPage"
+             x:DataType="model:FavLocation"
+             Title="Favorite locations settings"
+             >
+    <ScrollView>
+        <VerticalStackLayout Padding="20,20,20,20" Spacing="20" HorizontalOptions="Center">
+            <VerticalStackLayout Spacing="20">
+                <VerticalStackLayout WidthRequest="350" Spacing="15">
+                    <Label Text="Enter City:" FontAttributes="Bold"/>
+                    <Entry Placeholder="Bucharest" x:Name="entryCity"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout WidthRequest="350" Spacing="15">
+                    <Label Text="Enter Country code:" FontAttributes="Bold"/>
+                    <Entry Placeholder="ro" x:Name="entryCountry"/>
+                </VerticalStackLayout>
+
+                <Button Text="Add" WidthRequest="100" Clicked="AddFavorite_Button_Clicked" />
+            </VerticalStackLayout>
+
+            <ListView x:Name="listViewFavorite" 
+                      HorizontalScrollBarVisibility="Always" 
+                      VerticalScrollBarVisibility="Never">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout Spacing="10"
+                                                   Padding="5,5,5,15"
+                                                   HorizontalOptions="CenterAndExpand" 
+                                                   VerticalOptions="CenterAndExpand">
+                                <Image Source="{Binding FlagUrl}"
+                                       HeightRequest="30"
+                                       WidthRequest="30"
+                                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                                <HorizontalStackLayout                                                       
+                                                       HorizontalOptions="CenterAndExpand" 
+                                                       VerticalOptions="CenterAndExpand">
+                                    <Label Text="{Binding City}"/>
+                                    <Label Text=", " Margin="0,0,5,0"/>
+                                    <Label Text="{Binding CountryCode}"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Spacing="10"
+                                                       HorizontalOptions="CenterAndExpand"
+                                                       VerticalOptions="CenterAndExpand">
+                                    <HorizontalStackLayout>
+                                        <Label Text="lat: " Margin="0,0,3,0"/>
+                                        <Label Text="{Binding Latitude}"/>
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout>
+                                        <Label Text="long: " Margin="0,0,3,0"/>
+                                        <Label Text="{Binding Longitude}"/>
+                                    </HorizontalStackLayout>
+                                </HorizontalStackLayout>
+
+                                <Button Text="Delete"
+                                        Command="{Binding DeleteAsync}"
+                                        HorizontalOptions="EndAndExpand" 
+                                        VerticalOptions="CenterAndExpand"
+                                        />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
